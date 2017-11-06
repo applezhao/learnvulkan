@@ -18,8 +18,6 @@
 #define VK_USE_PLATFORM_WIN32_KHR
 #include<vulkan/vulkan.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 
 #include <iostream>
@@ -90,20 +88,30 @@ struct Vertex
 
 const vector<Vertex> vertices =
 {
-	{ { -0.5f, -0.5f, 0.0f },{ 1.0f, 0.0f, 0.0f },{ 0.0f, 0.0f } },
-	{ { 0.5f, -0.5f, 0.0f },{ 0.0f, 1.0f, 0.0f },{ 1.0f, 0.0f } },
-	{ { 0.5f, 0.5f, 0.0f },{ 0.0f, 0.0f, 1.0f },{ 1.0f, 1.0f } },
-	{ { -0.5f, 0.5f, 0.0f },{ 1.0f, 1.0f, 1.0f },{ 0.0f, 1.0f } },
+	//{ { -0.5f, -0.5f, 0.0f },{ 1.0f, 0.0f, 0.0f },{ 0.0f, 0.0f } },
+	//{ { 0.5f, -0.5f, 0.0f },{ 0.0f, 1.0f, 0.0f },{ 1.0f, 0.0f } },
+	//{ { 0.5f, 0.5f, 0.0f },{ 0.0f, 0.0f, 1.0f },{ 2.0f, 1.0f } },
+	//{ { -0.5f, 0.5f, 0.0f },{ 1.0f, 1.0f, 1.0f },{ 3.0f, 1.0f } },
 
-	{ { -0.5f, -0.5f, -0.5f },{ 1.0f, 0.0f, 0.0f },{ 0.0f, 0.0f } },
-	{ { 0.5f, -0.5f, -0.5f },{ 0.0f, 1.0f, 0.0f },{ 1.0f, 0.0f } },
-	{ { 0.5f, 0.5f, -0.5f },{ 0.0f, 0.0f, 1.0f },{ 1.0f, 1.0f } },
-	{ { -0.5f, 0.5f, -0.5f },{ 1.0f, 1.0f, 1.0f },{ 0.0f, 1.0f } }
+	//{ { -0.5f, -0.5f, -0.5f },{ 1.0f, 0.0f, 0.0f },{ 0.0f, 0.0f } },
+	//{ { 0.5f, -0.5f, -0.5f },{ 0.0f, 1.0f, 0.0f },{ 1.0f, 0.0f } },
+	//{ { 0.5f, 0.5f, -0.5f },{ 0.0f, 0.0f, 1.0f },{ 2.0f, 1.0f } },
+	//{ { -0.5f, 0.5f, -0.5f },{ 1.0f, 1.0f, 1.0f },{ 3.0f, 1.0f } }
+
+{ { -0.5f, -0.5f, 0.0f },{ 0.5f, -0.5f, 0.0f },{ 0.0f, 0.0f } },
+{ { 0.5f, -0.5f, 0.0f },{ 0.5f, 0.5f, 0.0f },{ 1.0f, 0.0f } },
+{ { 0.5f, 0.5f, 0.0f },{ -0.5f, 0.5f, 0.0f },{ 2.0f, 1.0f } },
+{ { -0.5f, 0.5f, 0.0f },{ -0.5f, 0.5f, 0.0f },{ 3.0f, 1.0f } },
+
+{ { -0.5f, -0.5f, -0.5f },{ 1.0f, 0.0f, 0.0f },{ 0.0f, 0.0f } },
+{ { 0.5f, -0.5f, -0.5f },{ 0.0f, 1.0f, 0.0f },{ 1.0f, 0.0f } },
+{ { 0.5f, 0.5f, -0.5f },{ 0.0f, 0.0f, 1.0f },{ 2.0f, 1.0f } },
+{ { -0.5f, 0.5f, -0.5f },{ 1.0f, 1.0f, 1.0f },{ 3.0f, 1.0f } }
 };
 
 const std::vector<uint16_t> indexes = {
-	0, 1, 2, 2, 3, 0,
-	4, 5, 6, 6, 7, 4
+	0, 1, 0, 1, 2, 1, 3, 
+	4, 5, 6, 7, 
 };
 
 struct UniformBufferObject
@@ -111,6 +119,11 @@ struct UniformBufferObject
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 proj;
+
+	glm::vec4 gLineColor;
+	float gLineWidth;
+
+	float gHalfFilterWidth;
 };
 
 struct QueueFamilyIndices
